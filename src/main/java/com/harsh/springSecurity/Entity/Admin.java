@@ -1,7 +1,5 @@
 package com.harsh.springSecurity.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,7 +10,7 @@ import lombok.Data;
 public class Admin {
     @Id
     private String username;
-    @JsonIgnore
+    // @JsonIgnore
     @Column(nullable = false)
     private  String password;
     @Column(nullable = false, length = 5)
