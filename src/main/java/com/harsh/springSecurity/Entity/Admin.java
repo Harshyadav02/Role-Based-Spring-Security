@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class Admin {
     @Id
-    private String username;
+    private String email;
     // @JsonIgnore
     @Column(nullable = false)
     private  String password;
