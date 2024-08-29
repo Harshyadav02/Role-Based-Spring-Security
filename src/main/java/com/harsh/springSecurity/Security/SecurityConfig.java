@@ -18,7 +18,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
         
         http.authorizeHttpRequests(request -> request 
-        .requestMatchers("/admin/**").authenticated()
+        .requestMatchers("/admin/**","/emp/**").authenticated()
         .anyRequest().permitAll())
         .httpBasic(Customizer.withDefaults())
         .userDetailsService(userDetailsServiceImp)
