@@ -8,29 +8,55 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.harsh.springSecurity.Entity.Admin;
+import com.harsh.springSecurity.Entity.Employee;
 import com.harsh.springSecurity.Repository.AdminRepo;
+import com.harsh.springSecurity.Repository.EmployeeRepo;
 
 @Service
 public class UserDetailsServiceImp implements UserDetailsService {
 
     @Autowired
     private AdminRepo adminRepo;
+    
+    @Autowired
+    private EmployeeRepo employeeRepo;
+    
+    // @Autowired
+    // private StudentRepo studentRepo;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        Admin adminDetail = adminRepo.findByUsername(username);
-
-        if (adminDetail == null) {
-            throw new UsernameNotFoundException("No such Admin with username\t" + username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        // Check if the user is an Admin
+        Admin adminDetail = adminRepo.findByEmail(email);
+        if (adminDetail != null) {
+            return User.builder()
+                       .username(adminDetail.getEmail())
+                       .password(adminDetail.getPassword())
+                       .roles("ADMIN")
+                       .build();
+        }
+        
+        // Check if the user is an Employee
+        Employee employeeDetail = employeeRepo.findByEmail(email);
+        if (employeeDetail != null) {
+            return User.builder()
+                       .username(employeeDetail.getEmail())
+                       .password(employeeDetail.getPassword())
+                       .roles("EMPLOYEE")
+                       .build();
         }
 
-        // building User Object by authecation provider and returing it to authentication manager
-        return User
-                .builder()
-                .username(adminDetail.getUsername())
-                .password(adminDetail.getPassword())
-                // .roles(adminDetail.getRoles())
-                .build();
+        // Check if the user is a Student
+        // Student studentDetail = studentRepo.findByEmail(email);
+        // if (studentDetail != null) {
+        //     return User.builder()
+        //                .username(studentDetail.getEmail())
+        //                .password(studentDetail.getPassword())
+        //                .roles("STUDENT")
+        //                .build();
+        // }
+
+        // If no user found, throw an exception
+        throw new UsernameNotFoundException("No user found with email: " + email);
     }
 }
