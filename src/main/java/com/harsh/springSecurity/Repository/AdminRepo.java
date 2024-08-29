@@ -6,5 +6,5 @@ import com.harsh.springSecurity.Entity.Admin;
 
 public interface AdminRepo extends CrudRepository<Admin,String>{
     
-    public Admin findByUsername(String username);
+    public Admin findByEmail(String username);
 }
