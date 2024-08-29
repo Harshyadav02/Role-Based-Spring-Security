@@ -23,7 +23,7 @@ public class EmployeeController {
     public ResponseEntity<?> getAll() {
         try {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            return new ResponseEntity<>(empService.getAllEmployee(username), HttpStatus.OK);
+            return new ResponseEntity<>(empService.getEmployeeData(username), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
