@@ -22,8 +22,9 @@ public class EmployeeController {
     @GetMapping
     public ResponseEntity<?> getAll() {
         try {
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            return new ResponseEntity<>(empService.getEmployeeData(username), HttpStatus.OK);
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            
+            return empService.getEmployeeData(email);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
