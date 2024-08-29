@@ -21,8 +21,8 @@ public class AdminService {
         adminDetails.setPassword(passwordEncoder.encode(adminDetails.getPassword()));
         adminRepo.save(adminDetails);
     }
-    public Admin getAdminDetails(String username) {
-        Admin adminDetails = adminRepo.findByUsername(username);
+    public Admin getAdminDetails(String email) {
+        Admin adminDetails = adminRepo.findByEmail(email);
         return adminDetails;
     }
     
