@@ -16,14 +16,13 @@ public class AdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     public void createAdminUser(Admin adminDetails) {
-        
         // password encryption
         adminDetails.setPassword(passwordEncoder.encode(adminDetails.getPassword()));
         adminRepo.save(adminDetails);
     }
+    
     public Admin getAdminDetails(String email) {
         Admin adminDetails = adminRepo.findByEmail(email);
         return adminDetails;
     }
-    
 }
