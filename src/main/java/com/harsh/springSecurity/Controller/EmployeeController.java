@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class EmployeeController {
     private EmployeeService empService;
 
     @GetMapping
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getEmployeeData() {
         try {
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
             
@@ -29,7 +30,6 @@ public class EmployeeController {
             return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @PostMapping
     public ResponseEntity<?> createEmployee(@RequestBody Employee empDetail) {
 
@@ -40,5 +40,14 @@ public class EmployeeController {
             System.out.println(e);
             return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }  
+    @PutMapping
+    public ResponseEntity<?> updateEmployeeData(@RequestBody Employee empDetails){
+        try {
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+           return empService.updateEmployeeData(email,empDetails);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getLocalizedMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }  
 }
