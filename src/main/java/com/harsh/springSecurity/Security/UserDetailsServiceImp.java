@@ -45,17 +45,6 @@ public class UserDetailsServiceImp implements UserDetailsService {
                        .roles("EMPLOYEE")
                        .build();
         }
-
-        // Check if the user is a Student
-        // Student studentDetail = studentRepo.findByEmail(email);
-        // if (studentDetail != null) {
-        //     return User.builder()
-        //                .username(studentDetail.getEmail())
-        //                .password(studentDetail.getPassword())
-        //                .roles("STUDENT")
-        //                .build();
-        // }
-
         // If no user found, throw an exception
         throw new UsernameNotFoundException("No user found with email: " + email);
     }
