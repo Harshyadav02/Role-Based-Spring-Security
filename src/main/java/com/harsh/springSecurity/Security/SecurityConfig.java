@@ -20,7 +20,6 @@ public class SecurityConfig {
         http.authorizeHttpRequests(request -> request 
         .requestMatchers("/admin/**").hasRole("ADMIN")
         .requestMatchers("/emp/**").hasRole("EMPLOYEE")
-        .requestMatchers("/stud/**").hasRole("STUDENT")
         .anyRequest().permitAll())
         .httpBasic(Customizer.withDefaults())
         .userDetailsService(userDetailsServiceImp)
